@@ -1,0 +1,19 @@
+{
+  "name": "task_app_nodejs",
+  "version": "1.0.0",
+  "description": "Task App with NodeJs and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickcarvlh/Task_App_nodejs.git"
+  },
+  "author": "Ricardo Carvalho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rickcarvlh/Task_App_nodejs/issues"
+  },
+  "homepage": "https://github.com/rickcarvlh/Task_App_nodejs#readme"
+}
