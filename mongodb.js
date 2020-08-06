@@ -1,8 +1,15 @@
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+// const mongodb = require('mongodb');
+// const MongoClient = mongodb.MongoClient;
+// const ObjectId = mongodb.ObjectID;
+
+const { MongoClient, ObjectId } = require('mongodb');
 
 const connectionUrl = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
+
+const id = new ObjectId();
+// console.log(id);
+// console.log(id.getTimestamp());
 
 MongoClient.connect(
   connectionUrl,
@@ -46,8 +53,7 @@ MongoClient.connect(
         console.log(result.ops);
       }
     );*/
-
-    db.collection('tasks').insertMany(
+    /* db.collection('tasks').insertMany(
       [
         {
           description: 'Clean the house',
@@ -69,6 +75,6 @@ MongoClient.connect(
 
         console.log(result.ops);
       }
-    );
+    );*/
   }
 );
