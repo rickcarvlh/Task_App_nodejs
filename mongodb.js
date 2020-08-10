@@ -8,8 +8,8 @@ const connectionUrl = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
 
 const id = new ObjectId();
-// console.log(id);
-// console.log(id.getTimestamp());
+console.log(id);
+console.log(id.getTimestamp());
 
 MongoClient.connect(
   connectionUrl,
@@ -20,21 +20,22 @@ MongoClient.connect(
     }
 
     const db = client.db(databaseName);
+    /*
+    db.collection('users').insertOne(
+      {
+        
+        name: 'Vikram',
+        age: '26',
+      },
+      (error, result) => {
+        if (error) {
+          return console.log('Unable to insert user');
+        }
 
-    //   db.collection('users').insertOne(
-    //     {
-    //       name: 'Ricardo',
-    //       age: '35',
-    //     },
-    //     (error, result) => {
-    //       if (error) {
-    //         return console.log('Unable to insert user');
-    //       }
-
-    //       console.log(result.ops);
-    //     }
-    //   );
-    // }
+        console.log(result.ops);
+      }
+    );
+  }*/
 
     /*
     db.collection('users').insertMany(
