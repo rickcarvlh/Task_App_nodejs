@@ -2,14 +2,13 @@
 // const MongoClient = mongodb.MongoClient;
 // const ObjectId = mongodb.ObjectID;
 
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 
 const connectionUrl = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
 
-const id = new ObjectId();
-console.log(id);
-console.log(id.getTimestamp());
+// console.log(id);
+// console.log(id.getTimestamp());
 
 MongoClient.connect(
   connectionUrl,
@@ -20,62 +19,24 @@ MongoClient.connect(
     }
 
     const db = client.db(databaseName);
+
+    // * fetching data from database
     /*
-    db.collection('users').insertOne(
-      {
-        
-        name: 'Vikram',
-        age: '26',
-      },
-      (error, result) => {
+    db.collection('users').findOne(
+      { _id: new ObjectID('5f314aee2f2888646cedacee') },
+      (error, users) => {
         if (error) {
-          return console.log('Unable to insert user');
+          console.log('Unable to fetch');
         }
 
-        console.log(result.ops);
-      }
-    );
-  }*/
-
-    /*
-    db.collection('users').insertMany(
-      [
-        {
-          name: 'Jane',
-          age: 28,
-        },
-        { name: 'Gunther', age: 27 },
-      ],
-      (error, result) => {
-        if (error) {
-          return console.log('Unable inser documents');
-        }
-
-        console.log(result.ops);
+        console.log(users);
       }
     );*/
-    /* db.collection('tasks').insertMany(
-      [
-        {
-          description: 'Clean the house',
-          completed: true,
-        },
-        {
-          description: 'Renew Inspection',
-          completed: false,
-        },
-        {
-          description: 'Pot plants',
-          completed: false,
-        },
-      ],
-      (error, result) => {
-        if (error) {
-          return console.log('Unable to insert tasks');
-        }
 
-        console.log(result.ops);
-      }
-    );*/
+    db.collection('users')
+      .find({ age: 27 })
+      .toArray((error, users) => {
+        console.log(users);
+      });
   }
 );
