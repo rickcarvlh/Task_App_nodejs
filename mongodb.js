@@ -20,18 +20,4 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    // * update documents on db
-
-    // promisse for update database
-    db.collection('tasks').updateMany({
-      completed: false
-    }, {
-      $set: { completed: true }
-    },
-    ).then((result) => {
-      console.log(result.modifiedCount);
-    }).catch((error) => {
-      console.log("Error: ", error);
-    })
-  }
-);
+  });
