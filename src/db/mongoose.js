@@ -49,7 +49,7 @@ const User = mongoose.model('User', {
 
 })
 
-
+/*
 const me = new User({
     name: 'Mike',
     email: 'MYEMAIL@MEAD.IO',
@@ -62,16 +62,24 @@ me.save().then(() => {
 }).catch((error) => {
     console.log(error);
 })
+*/
 
 
-/*
 const Task = mongoose.model('Task', {
     description: {
-        type: String
+        type: String,
+        trim: true,
+        required: true,
     },
     completed: {
-        type: Boolean
-    }
-})*/
+        type: Boolean,
+        default: false,
 
+    }
+})
+
+const task = new Task({
+    description: 'Lear the Mongoose library',
+    completed: false
+})
 
