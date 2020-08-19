@@ -1,2 +1,2 @@
-# Task_App_nodejs
-Project with NodeJs and MongoDB 
+# Task App
+Project with NodeJs using ExpressJS and MongoDB as database 
