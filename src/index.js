@@ -1,10 +1,20 @@
 const express = require('express');
+require('./db/mongoose')
+const User = require('./models/user');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 app.post('/users', (request, response) => {
-    response.send('Testing')
+    const user = new User(request.body)
+
+    user.save().then(() => {
+        response.send(user);
+    }).catch((e) => {
+        response.status(400).send(e);
+    })
 })
 
 app.listen(port, () => {
