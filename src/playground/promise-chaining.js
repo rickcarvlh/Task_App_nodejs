@@ -4,7 +4,7 @@ const User = require('../models/user')
 
 // 5f3d40bc134d44513ceaae4e
 
-
+/*
 User.findByIdAndUpdate('5f3e7f35e4172e4858fd4dce', { age: 1 }).then((user) => {
     console.log(user)
     return User.countDocuments({ age: 1 })
@@ -13,12 +13,16 @@ User.findByIdAndUpdate('5f3e7f35e4172e4858fd4dce', { age: 1 }).then((user) => {
 }).catch((e) => {
     console.log(e);
 })
-/*
+*/
 
-    (node: 17860) DeprecationWarning: Mongoose: 
-    `findOneAndUpdate()` and`findOneAndDelete()` 
-    without the`useFindAndModify`
-     option set to false are deprecated.
-     See: https://mongoosejs.com/docs/deprecations.html#findandmodify
-{
-    */
+const updateAgeAndCount = async (id, age) => {
+    const user = await User.findByIdAndUpdate(id, { age })
+    const count = await User.countDocuments({ age })
+    return count
+}
+
+updateAgeAndCount('5f3e7f35e4172e4858fd4dce', 2).then((count) => {
+    console.log(count);
+}).catch((e) => {
+    console.log(e);
+})
