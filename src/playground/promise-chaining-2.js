@@ -18,7 +18,8 @@ Task.findByIdAndDelete('5f3e88035b89c35bb4d47003').then((task) => {
 
 const deleteTaskAndCount = async (id) => {
     const task = await Task.findByIdAndDelete(id)
-    const count = await Task.countDocuments({ completed: false })
+    // if you return a Promise then the.then() will wait until it's resolved before executing itself.
+    const count = Task.countDocuments({ completed: false })
     return count
 }
 
