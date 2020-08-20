@@ -2,6 +2,8 @@
 // const MongoClient = mongodb.MongoClient;
 // const ObjectId = mongodb.ObjectID;
 
+/*
+
 const { MongoClient, ObjectID } = require('mongodb');
 
 const connectionUrl = 'mongodb://127.0.0.1:27017';
@@ -21,3 +23,6 @@ MongoClient.connect(
     const db = client.db(databaseName);
 
   });
+*/
+
+  // this code won't be necessary
