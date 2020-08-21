@@ -9,17 +9,18 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// * user related routes
 
 // user api creating
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
     const user = new User(req.body)
-
-    user.save().then(() => {
+    try {
+        await user.save()
         res.status(201).send(user)
-    }).catch((e) => {
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
 })
 
 // get users api
@@ -47,7 +48,7 @@ app.get('/users/:id', (req, res) => {
     })
 })
 
-
+// * task related routes
 
 // task api creating
 app.post('/tasks', (req, res) => {
