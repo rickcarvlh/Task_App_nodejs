@@ -52,7 +52,34 @@ app.get('/users/:id', async (req, res) => {
     }
 })
 
-// * task related routes
+// * updating users endpoints
+// patch method :
+// The HTTP methods PATCH can be used to update partial resources
+app.patch('/users/:id', async (req, res) => {
+
+    // validation
+    const _id = req.params.id;
+    const updates = Object.keys(req.body)
+    const allowedUpadates = ['name', 'email', 'password', 'age']
+    const isValidOperation = updates.every((update) => allowedUpadates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates ' })
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(_id, req.body, { runValidators: true });
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+// * task related endpoints
 
 // task api creating
 app.post('/tasks', async (req, res) => {
