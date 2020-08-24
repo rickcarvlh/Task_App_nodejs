@@ -79,6 +79,16 @@ app.patch('/users/:id', async (req, res) => {
     }
 })
 
+// * deleting users
+app.delete('/users/:id', async (req, res) => {
+    try {
+        
+    } catch (e) {
+        
+    }
+})
+
+
 // * task related endpoints
 
 // task api creating
