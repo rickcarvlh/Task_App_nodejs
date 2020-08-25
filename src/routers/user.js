@@ -61,7 +61,7 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(_id)
+        const user = await User.findById(_id)
         updates.forEach((update) => {
             user[update] = req.body[update]
         })
