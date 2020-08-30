@@ -32,13 +32,8 @@ router.post('/users/login', async (req, res) => {
 })
 
 // get users api
-router.get('/users', auth, async (req, res) => {
-    try {
-        const users = await User.find({})
-        res.send(users)
-    } catch (e) {
-        res.status(500).send()
-    }
+router.get('/users/me', auth, async (req, res) => {
+    res.send(req.user)
 })
 
 // get users by id api

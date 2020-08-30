@@ -7,7 +7,14 @@ const auth = async (req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '')
         // TODO não concordo muito com isto
         const decoded = jwt.verify(token, 'thisismynewcourse')
+        // checks if the user token is still valid
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+        if(!user){
+            throw new Error()
+        }
+        // the user work is chosen by me
+        req.user = user
+        next()
     } catch (e) {
         res.status(401).send({ error: 'Please authenticate' })
     }
