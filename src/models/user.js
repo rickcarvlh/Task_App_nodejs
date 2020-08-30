@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
 // * custom function -> allows the this keyword
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    // existe uma manneira mais correta para fazer o segredo de certeza é ver depois
+    // TODO  existe uma manneira mais correta para fazer o segredo de certeza é ver depois
     const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse')
     // concatening the token to the array
     user.tokens = user.tokens.concat({ token })

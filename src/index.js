@@ -9,8 +9,8 @@ const taskRouter = require('./routers/task')
 const app = express();
 const port = process.env.PORT || 3000;
 
-// do something
-
+// -> not used
+/*
 app.use((req, res, next) => {
     res.status()
     if (req.method === ('GET' || 'POST' || 'PATCH' || 'DELETE')) {
@@ -18,6 +18,7 @@ app.use((req, res, next) => {
     }
 
 })
+*/
 
 app.use(express.json());
 app.use(userRouter)
