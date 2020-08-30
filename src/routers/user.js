@@ -5,14 +5,28 @@ const router = new express.Router()
 // * user related routes
 
 // user api creating
-
+// * CREATE USER ENDPOINT
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
+
     try {
         await user.save()
-        res.status(201).send(user)
+        // generate token for saved user
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token })
     } catch (e) {
         res.status(400).send(e)
+    }
+})
+
+//  * LOGIN ENDPOINT
+router.post('/users/login', async (req, res) => {
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()
+        res.send({ user, token })
+    } catch (e) {
+        res.status(500).send(e)
     }
 })
 
@@ -61,7 +75,14 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(_id, req.body, { runValidators: true });
+        const user = await User.findById(_id)
+        updates.forEach((update) => {
+            user[update] = req.body[update]
+        })
+        await user.save()
+
+
+        // const user = await User.findByIdAndUpdate(_id, req.body, { runValidators: true });
         if (!user) {
             return res.status(404).send()
         }
