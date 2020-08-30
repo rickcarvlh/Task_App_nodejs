@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+// loading jwt token
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -41,9 +43,29 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    // tokens array of objects
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 
 })
 
+// * custom function -> allows the this keyword
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    // existe uma manneira mais correta para fazer o segredo de certeza é ver depois
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse')
+    // concatening the token to the array
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+    return token
+
+}
+
+// *  find user bt credentials
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
 
