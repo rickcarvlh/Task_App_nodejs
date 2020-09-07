@@ -9,9 +9,11 @@ const auth = async (req, res, next) => {
         const decoded = jwt.verify(token, 'thisismynewcourse')
         // checks if the user token is still valid
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
-        if(!user){
+        if (!user) {
             throw new Error()
         }
+        
+        req.token = token
         // the user work is chosen by me
         req.user = user
         next()
