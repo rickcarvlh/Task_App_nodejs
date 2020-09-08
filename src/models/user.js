@@ -53,6 +53,19 @@ const userSchema = new mongoose.Schema({
 
 })
 
+
+// * hide private data
+userSchema.methods.getPublicProfile = function () {
+    const user = this
+    // raw profile data
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.token
+
+    return userObject
+}
+
 // * custom function -> allows the this keyword
 userSchema.methods.generateAuthToken = async function () {
     const user = this
