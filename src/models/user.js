@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
 
 
 // * hide private data
-userSchema.methods.getPublicProfile = function () {
+userSchema.methods.toJSON = function () {
     const user = this
     // raw profile data
     const userObject = user.toObject()
