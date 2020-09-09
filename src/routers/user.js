@@ -64,29 +64,12 @@ router.get('/users/me', auth, async (req, res) => {
 
 // get users by id api
 
-// * needs to have a valid id -> 12 or 24 numbers
-
-router.get('/users/:id', async (req, res) => {
-    const _id = req.params.id
-
-    try {
-        const user = await User.findById(_id)
-        if (!user) {
-            return res.status(404).send()
-        }
-        res.send(user)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
 // * updating users endpoints
 // patch method :
 // The HTTP methods PATCH can be used to update partial resources
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/me', auth, async (req, res) => {
 
     // validation
-    const _id = req.params.id;
     const updates = Object.keys(req.body)
     const allowedUpadates = ['name', 'email', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpadates.includes(update))
@@ -96,33 +79,22 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findById(_id)
         updates.forEach((update) => {
-            user[update] = req.body[update]
+            req.user[update] = req.body[update]
         })
-        await user.save()
-
-
-        // const user = await User.findByIdAndUpdate(_id, req.body, { runValidators: true });
-        if (!user) {
-            return res.status(404).send()
-        }
-
-        res.send(user)
+        await req.user.save()
+        res.send(req.user)
     } catch (e) {
         res.status(500).send(e)
     }
 })
 
-// * deleting users
-router.delete('/users/:id', async (req, res) => {
-    const _id = req.params.id
+// * deleting users -> only runs if user is auth
+router.delete('/users/me', auth, async (req, res) => {
+
     try {
-        const user = await User.findByIdAndDelete(_id)
-        if (!user) {
-            return res.status(404).send()
-        }
-        res.send(user)
+        await req.user.remove()
+        res.send(req.user)
     } catch (e) {
         res.status(500).send(e)
 
